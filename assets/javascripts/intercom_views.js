@@ -26,6 +26,16 @@ $(function() {
     EmployersView = Backbone.View.extend({
 
         el: '.content',
+        
+        events: {
+            'click .page_button': 'changePage',
+        },
+
+        changePage: function(){
+            var page_Id = $(".page_button");
+            console.log("test");
+        },
+
 
         initialize: function() {
             this.$el.html('');
