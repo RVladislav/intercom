@@ -1,10 +1,5 @@
 var app = app || {};
 
-function fu (){
-    alert("test");
-    console.log("test");
-}
-
 $(function() {
 
     var AppView = Backbone.View.extend({});

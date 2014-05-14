@@ -1,5 +1,14 @@
 var app = app || {};
 
+function fu (n){
+
+    if(n==1)
+    {alert("back")}
+    if(n==2)
+    {alert("next")}
+    console.log(n)
+}
+
 $(function() {
 
     $('#header').hide();
@@ -58,7 +67,7 @@ $(function() {
             if (param !== null) {
                 app.employers.fetch({
                     data: {
-                        skills: param.split(' ')
+                            skills: param.split(' ')
                     },
                     error: function() {
                         console.log("some errors");
