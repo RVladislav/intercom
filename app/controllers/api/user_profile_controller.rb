@@ -18,7 +18,8 @@ class Api::UserProfileController < ApplicationController
       conditions.insert(0, qanchor)
       respond_with UserProfile.find(:all, :conditions => conditions)  
     else
-      respond_with UserProfile.all
+      k = 1
+        respond_with UserProfile.where(id: k..k+5)
     end
   end
 end

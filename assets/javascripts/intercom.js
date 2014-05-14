@@ -1,6 +1,6 @@
 var app = app || {};
 
-function fu (n){
+function page_button (n){
 
     if(n==1)
     {alert("back")}
