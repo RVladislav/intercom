@@ -19,7 +19,7 @@ class Api::UserProfileController < ApplicationController
       respond_with UserProfile.find(:all, :conditions => conditions)  
     else
       k = 1
-        respond_with UserProfile.where(id: k..k+5)
+        respond_with UserProfile.where(id: k..k+4)
     end
   end
 end
