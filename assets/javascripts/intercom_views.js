@@ -31,19 +31,37 @@ $(function() {
             'click .page_button': 'changePage',
         },
 
-        changePage: function(){
+        changePage: function(e){
             var page_Id = $(".page_button");
-            console.log("test");
+            console.log("func changePage " + $(e.target).data("direction"));  
+
+            var newPage = parseInt(this.page) + parseInt($(e.target).data("direction"));
+            if(newPage < 1) newPage = 1;
+
+            app.router.navigate('/employers//' + newPage, {
+                   trigger: true
+            });            
         },
 
 
-        initialize: function() {
+        initialize: function(e) {
+            console.log("initialization");
             this.$el.html('');
             // this.$el.append("<ul class='employer-list'> </ul>");
             this.$el.append("<div class='employer-list'> </div>");
+            this.$el.append("<p>" +
+                "<input class='page_button' data-direction = '-1' type='button' value=' << '>"+
+                "<input class='page_button' data-direction = '1' type='button' value=' >> '>" +
+                "</p>");
+
+            // console.log(this);
+            // console.log(e);
+            // this.page = e.page;
+            this.page = 1;
         },
 
         render: function() {
+            this.$(".employer-list").html('');
             if (app.employers.length) {
                 _.each(app.employers.models, this.addOne);
             }
@@ -106,7 +124,7 @@ $(function() {
             return this;
         },
 
-        selectPage: function(ev) {
+        selectPage: function(ev) {    //?!
             var urlPath = $(ev.currentTarget).attr('value').toLowerCase();
             app.router.navigate(urlPath, {
                 trigger: true
@@ -124,7 +142,7 @@ $(function() {
                         trigger: true
                     });
                 } else {
-                    app.router.navigate('/employers/' + keywords, {
+                    app.router.navigate('/employers/' + keywords + '/', {
                         trigger: true
                     });
                 }
@@ -139,7 +157,7 @@ $(function() {
                     trigger: true
                 });
             } else {
-                app.router.navigate('/employers/' + keywords, {
+                app.router.navigate('/employers/' + keywords+ '/', {
                     trigger: true
                 });
             }

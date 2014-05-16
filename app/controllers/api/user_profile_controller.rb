@@ -2,6 +2,7 @@ class Api::UserProfileController < ApplicationController
   respond_to :json
 
   def index 
+    Rails::logger::debug 1
 
     if (params[:skills])
       skills = params[:skills]
@@ -16,10 +17,13 @@ class Api::UserProfileController < ApplicationController
 
       conditions = skillsT.clone
       conditions.insert(0, qanchor)
-      respond_with UserProfile.find(:all, :conditions => conditions)  
+      respond_with UserProfile.find(:all, :conditions => conditions)
     else
-      k = 1
-        respond_with UserProfile.where(id: k..k+4)
+      k = 1     
+      if(params[:page])
+        k = params[:page].to_i
+      end
+      respond_with UserProfile.where(id: k * 3 - 2 .. k * 3)
     end
   end
 end

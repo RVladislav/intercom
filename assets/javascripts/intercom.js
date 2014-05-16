@@ -1,14 +1,5 @@
 var app = app || {};
 
-function page_button (n){
-
-    if(n==1)
-    {alert("back")}
-    if(n==2)
-    {alert("next")}
-    console.log(n)
-}
-
 $(function() {
 
     $('#header').hide();
@@ -32,7 +23,7 @@ $(function() {
             'mypage': 'mypage',
             'mypage/(:param)': 'mypage',
             'groups': 'groups',
-            'employers/(:param)': 'employers',
+            'employers/(:param)/(:page)': 'employers',
             '*actions': 'search'
         },
 
@@ -52,39 +43,58 @@ $(function() {
             if (param !== null) {
                 console.log("mypage id: " + param);
                 var myPageView = new MyPageView({
-                model: app.employers.first()
-            });
+                    model: app.employers.first()
+                });
                 myPageView.render();
             } else {
                 var myPageView = new MyPageView({
-                model: app.employers.first()
-            });
+                    model: app.employers.first()
+                });
                 myPageView.render();
             }
         },
 
-        employers: function(param) {
+        employers: function(param, page) {
+            app.employers.reset();
+            console.log('problem here hi ' + page);
+            //This is being called multiple times when click button
+            //intercom_views.js line 34 changePage
+            var p = page || 1;
             if (param !== null) {
                 app.employers.fetch({
                     data: {
-                            skills: param.split(' ')
+                            skills: param.split(' '),
+                            page: p
                     },
                     error: function() {
                         console.log("some errors");
                     },
                     success: function() {
-                        var empView = new EmployersView({});
-                        empView.render();
+                        // var empView = new EmployersView({page: p});
+                        // empView.render();
+                        if(typeof(app.employerView) === 'undefined') {
+                            app.employerView = new EmployersView();                            
+                            app.employerView.render();
+                        }else {
+                            app.employerView.render();                       
+                        }
                     }
                 });
             } else {
                 app.employers.fetch({
+                    data: {
+                            page: p
+                    },
                     error: function() {
                         console.log("some errors");
                     },
-                    success: function() {
-                        var empView = new EmployersView({});
-                        empView.render();
+                    success: function() {                         
+                        if(typeof(app.employerView) === 'undefined') {
+                            app.employerView = new EmployersView();                            
+                            app.employerView.render();
+                        }else {
+                            app.employerView.render();                       
+                        }
                     }
                 });
             }
