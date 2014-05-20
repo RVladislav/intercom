@@ -52,6 +52,10 @@ $(function() {
 
         el: '.content',
 
+        events: {
+            'click .btn-change': 'changePage'
+        },
+
         template: _.template(app.myPageTemplate),
 
         initialize: function() {
@@ -62,6 +66,9 @@ $(function() {
             this.$el.html(this.template(this.model.toJSON()));
             return this;
         },
+        changePage: function() {
+            alert("we");
+            });
     });
 
     NewsView = Backbone.View.extend({
