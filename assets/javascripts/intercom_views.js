@@ -53,7 +53,8 @@ $(function() {
         el: '.content',
 
         events: {
-            'click .btn-change': 'changePage'
+            'click .btn-change': 'changePage',
+            'click .btn-save': 'saveEdit'
         },
 
         template: _.template(app.myPageTemplate),
@@ -66,9 +67,21 @@ $(function() {
             this.$el.html(this.template(this.model.toJSON()));
             return this;
         },
+        saveEdit: function() {
+            this.$(".btn-change").visibility="visible";
+            this.$(".btn-save").visibility="hiddent";
+        },
         changePage: function() {
-            alert("we");
-            });
+            this.$(".btn-change").visibility="hiddent";
+            this.$(".btn_save").visibility="visible";
+            this.$(".change_project").visibility="visible";
+            this.$(".change_post").visibility="visible";
+            this.$(".change_mail").visibility="visible";
+            this.$(".change_room").visibility="visible";
+            this.$(".change_hbd").visibility="visible";
+            this.$(".change_since").visibility="visible";
+            this.$(".change_hobby").visibility="visible";
+        });
     });
 
     NewsView = Backbone.View.extend({
